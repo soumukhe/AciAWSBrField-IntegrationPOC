@@ -7,7 +7,7 @@ Please see https://unofficialaciguide.com for full details
 # This code has 3 directories
 ```
 aci_tenant                 # Used to spin up an ACI Tenant with 1 VPC, 3 subnets with Transit Gateway Connecitivy to ACI Infra Tenant and other associated objects
-awsEC2-onACI_Infra         # Please use the aci_tenant script first.  This script will spin up an ec2 with Apache installed on the ACI Tenant
+awsEC2-onACI_tenant        # Please use the aci_tenant script first.  This script will spin up an ec2 with Apache installed on the ACI Tenant
 BField_with_TGW            #  This script will create a Brownfield environment that you can then integrate with ACI Tenant.  
                                BrField will have 2 VPCs, Transit Gateway with attachments and routes.  1 EC2 will be spun up in each VPC and you can reach between
                                EC2s on private IP through the Transit gateway.
