@@ -22,7 +22,7 @@ provider "aws" {
 
 data "aws_vpcs" "vpc_id" {
   tags = {
-    AciPolicyDnTag = "*-aciAwsBrownfieldPOC-*" # adding filter for "uni/tn-sm-terraform-T1/ctxprofile-vrf1-us-east-1"
+    AciPolicyDnTag = "*-aciAwsBrownfieldPO*" # adding filter for "uni/tn-sm-terraform-T1/ctxprofile-vrf1-us-east-1"
   }
 }
 
