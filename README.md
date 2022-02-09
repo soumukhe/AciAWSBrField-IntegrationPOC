@@ -1,5 +1,6 @@
 # AciAWSBrField-IntegrationPOC
-Code for spinning up ACI Tenant,  Brownfield environment and EC2s for Brownfield Integration POC
+Code for spinning up full ACI Tenant with EC2s on AWS,  Brownfield environment and EC2s for Brownfield Integration POC
+Used for POC for ACI/AWS Brownfield integration
 
 Please see https://unofficialaciguide.com for full details
 
