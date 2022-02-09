@@ -10,9 +10,8 @@ aci_tenant                 # Used to spin up an ACI Tenant with 1 VPC, 3 subnets
 awsEC2-onACI_tenant        # Please use the aci_tenant script first.  This script will spin up an ec2 with Apache installed on the ACI Tenant
 BField_with_TGW            #  This script will create a Brownfield environment that you can then integrate with ACI Tenant.  This will help you 
                               to get familiar with the integration without getting distraced by having to setup the basic brownfield and ACI Tenant.
-                              BrField will have 2 VPCs, Transit Gateway with attachments and routes.  1 EC2 will be spun up in each VPC 
-                              and you can reach between
-                               EC2s on private IP through the Transit gateway.
+                              BrField will have 2 VPCs, Transit Gateway with attachments and routes.  1 EC2 will be spun up in each VPC. 
+                              and you can reach between EC2s on private IP through the AWS Transit gateway.
                              
 ```
 
@@ -24,7 +23,7 @@ BField_with_TGW            #  This script will create a Brownfield environment t
    You can also change variable values in terraform.tfvars as you need to.  Feel free to also modify values in vars.tf if you want.
    
   2) When spinning up the ACI Tenant, make sure to first source the environment file "source ./FirstSourceParallelism.env".  This will setup the parallelism=1 env.
-     After that you can use your terraform init/fmt/validate/plan/apply commands
+     After that you can use your terraform init/fmt/validate/plan/apply/show/refresh/output commands.
      
   3) when spinning up EC2 on the ACI tenant, please first source the environment file: "source ./unset_env_first.env".  This will remove the parallelism env.
   
