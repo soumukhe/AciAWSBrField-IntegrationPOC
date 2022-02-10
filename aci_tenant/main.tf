@@ -220,7 +220,7 @@ resource "mso_schema_template_contract_filter" "Any" {
   template_name = mso_schema_template_contract.template_contract.template_name
   contract_name = mso_schema_template_contract.template_contract.contract_name # "C1"
   filter_type   = "bothWay"
-  filter_name   = "Any"
+  filter_name   = mso_schema_template_filter_entry.filter_entry.name
   directives    = ["none", "log"]
 }
 
