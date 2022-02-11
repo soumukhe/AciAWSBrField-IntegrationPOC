@@ -88,7 +88,7 @@ resource "aws_instance" "sm-terraform1-ec2" {
   key_name                    = aws_key_pair.loginkey.key_name
   count                       = var.num_inst
   tags = {
-    name = "ec2-${count.index}" # first instance will be ec2-0, then ec2-1 etc, etc
+    Name = "ec2-${count.index}" # first instance will be ec2-0, then ec2-1 etc, etc
   }
 }
 
