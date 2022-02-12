@@ -28,4 +28,4 @@ BField_with_TGW            #  This script will create a Brownfield environment t
   3) when spinning up EC2 on the ACI tenant, please first source the environment file: "source ./unset_env_first.env".  This will remove the parallelism env.
   
   
-  Please see https://unofficialaciguide.com/(still working on writeup) for full step by step guide on ACI/AWS Brownfield Integration procedure.
+  Please see https://unofficialaciguide.com/2022/02/11/cloud-aci-25-0-2-aws-brownfield-integration-to-cloud-aci-fabric-on-aws-with-proof-of-concept/ for full step by step guide on ACI/AWS Brownfield Integration procedure.
