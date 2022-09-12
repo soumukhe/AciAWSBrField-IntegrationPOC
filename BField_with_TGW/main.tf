@@ -73,7 +73,7 @@ resource "aws_default_route_table" "br1-rt" {
   default_route_table_id = aws_vpc.brownfield1_vpc.default_route_table_id
 
   tags = {
-    Name = "brownfield1-RT"
+    Name = "brownfield1-RT-Main"
   }
 }
 
@@ -84,9 +84,56 @@ resource "aws_default_route_table" "br2-rt" {
   default_route_table_id = aws_vpc.brownfield2_vpc.default_route_table_id
 
   tags = {
+    Name = "brownfield2-RT-Main"
+  }
+}
+
+
+# Create Custom route table for brownfield1
+
+resource "aws_route_table" "br1-rt" {
+  vpc_id = aws_vpc.brownfield1_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw-brownfield1.id
+  }
+
+  tags = {
+    Name = "brownfield1-RT"
+  }
+}
+
+# Create Custom route table for brownfield2
+
+resource "aws_route_table" "br2-rt" {
+  vpc_id = aws_vpc.brownfield2_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw-brownfield2.id
+  }
+
+  tags = {
     Name = "brownfield2-RT"
   }
 }
+
+# Associate Custom Route table for brownfield1 with brownfield1-subnet
+
+resource "aws_route_table_association" "br1-rt" {
+  subnet_id      = aws_subnet.brownfield1-subnet.id
+  route_table_id = aws_route_table.br1-rt.id
+}
+
+# Associate Custom Route table for brownfield1 with brownfield1-subnet
+
+resource "aws_route_table_association" "br2-rt" {
+  subnet_id      = aws_subnet.brownfield2-subnet.id
+  route_table_id = aws_route_table.br2-rt.id
+}
+
+/*   Commenting out the default route table route associations
 
 # Associate the route table created for brownfield1, associate with briwnfield1-IGW
 resource "aws_route" "br1-default_to_igw" {
@@ -102,6 +149,11 @@ resource "aws_route" "br2-default_to_igw" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw-brownfield2.id
 }
+
+*/
+
+
+
 
 # Get ID for Amazon EC2 (basic)
 
@@ -207,6 +259,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "TGW-Attachment-BR2_VPC" {
 
 }
 
+/* Commenting out the Transit Gateway Route on the default route tables
 
 # Associate the route table created for brownfield1, associate with briwnfield-TGW
 resource "aws_route" "br1-To-BR2_viaTGW" {
@@ -216,14 +269,31 @@ resource "aws_route" "br1-To-BR2_viaTGW" {
 }
 
 
-# Associate the route table created for brownfield2, associate with briwnfield-TGW
+# Associate the route table created for brownfield2, associate with brownfield-TGW
 resource "aws_route" "br2-To-BR1_viaTGW" {
   route_table_id         = aws_vpc.brownfield2_vpc.default_route_table_id
   destination_cidr_block = aws_vpc.brownfield1_vpc.cidr_block
   transit_gateway_id     = aws_ec2_transit_gateway.brownfieldTGW.id
 }
 
+*/
 
+
+# Associate the Transit Gateway Route on the custom route table
+# Transit Gateway Route for brownfield1, associate with TGW
+resource "aws_route" "br1-To-BR2_viaTGW" {
+  route_table_id         = aws_route_table.br1-rt.id
+  destination_cidr_block = aws_vpc.brownfield2_vpc.cidr_block
+  transit_gateway_id     = aws_ec2_transit_gateway.brownfieldTGW.id
+}
+
+
+# Transit Gateway Route for brownfield2, associate with TGW
+resource "aws_route" "br2-To-BR1_viaTGW" {
+  route_table_id         = aws_route_table.br1-rt.id
+  destination_cidr_block = aws_vpc.brownfield2_vpc.cidr_block
+  transit_gateway_id     = aws_ec2_transit_gateway.brownfieldTGW.id
+}
 
 # Create keypair for ssh
 resource "aws_key_pair" "loginkey1" {
